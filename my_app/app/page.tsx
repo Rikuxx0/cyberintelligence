@@ -92,7 +92,9 @@ export default function Home() {
         </div>
       </div>
       <Separator className="border-b-black" />
+      {/*　アプリ簡易説明 */}
       <div className="bg-neutral-900 text-white p-0 m-0">
+        <h2 className="p-5 text-5xl font-bold">What is Cyber Intelligence ?</h2>
         <ResizablePanelGroup direction="horizontal" className="w-screen h-screen">
           <ResizablePanel defaultSize={100} className="flex items-center justify-center p-8">
             <Carousel className="w-7xl rounded-lg">
@@ -131,7 +133,7 @@ export default function Home() {
         <br />
         <a className="block mt-3.5">プライバシーポリシー</a> 
         
-        <p className="p-9">created by Riku Masukawa in 2025</p>
+        <p className="p-9">Created by Riku Masukawa in 2025</p>
       </div>
 
     </div>
