@@ -10,7 +10,32 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
  } from "@/components/ui/navigation-menu";
+
 import { Separator } from "@/components/ui/separator";
+import { 
+         ResizablePanel,
+         ResizablePanelGroup,
+ } from "@/components/ui/resizable";
+
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+
+
+const cardContents = [
+  { picture: "picture1", title: "Hello", description: "This is the first card." },
+  { picture: "picture2", title: "Cyber", description: "Explore the digital world." },
+  { picture: "picture3", title: "AI", description: "Smarter with artificial intelligence." },
+  { picture: "picture4", title: "Security", description: "Stay protected online." },
+  { picture: "picture5", title: "World", description: "Connect globally." },
+  { picture: "picture6", title: "Future", description: "Build what's next." },
+];
+
 
 export default function Home() {
   return (
@@ -19,7 +44,7 @@ export default function Home() {
       <header className="flex justify-between items-center bg-black text-white px-6 py-4 shadow">
         {/* 左側のロゴ*/ }
         <div className="text-2xl font-bold tracking-wide transition hover:opacity-80">
-              Cyber Intelligence
+            Cyber Intelligence
         </div>
         {/* 右側: メニュー */}
         <Menubar className="flex justify-end space-x-3 bg-black text-white p-4">
@@ -67,11 +92,46 @@ export default function Home() {
         </div>
       </div>
       <Separator className="border-b-black" />
-      <div className="bg-neutral-800 min-h-screen text-white p-8">
-        <h1>アプリの説明</h1>
+      <div className="bg-neutral-900 text-white p-0 m-0">
+        <ResizablePanelGroup direction="horizontal" className="w-screen h-screen">
+          <ResizablePanel defaultSize={100} className="flex items-center justify-center p-8">
+            <Carousel className="w-7xl rounded-lg">
+              <CarouselContent>
+                {cardContents.map((content, index) => (
+                  <CarouselItem key={index}>
+                    <Card className="w-full h-full">
+                      <CardContent className="flex flex-row w-full h-full p-6 gap-6">
+                        {/* 左側：画像パネル */}
+                        <div className="flex-1 flex items-center aspect-square  justify-center bg-neutral-800 rounded-lg">
+                          <span className="text-xl font-semibold">{content.picture}</span>
+                        </div>
+
+                        {/* 右側：テキスト */}
+                        <div className="flex-1 flex flex-col items-center justify-center text-center">
+                          <span className="text-2xl font-bold mb-2">{content.title}</span>
+                          <p className="text-sm text-gray-500">{content.description}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="text-black" />
+              <CarouselNext className="text-black" />
+            </Carousel>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+
+                  
       </div>
-      <div className="bg-black min-h-65 text-white">
-        <h1>アプリの説明やポリシーを載せる</h1>
+      {/* 利用規約とプライバシーポリシーを作成する*/}
+      <div className="bg-black min-h-55 text-white text-center">
+        <h1 className="p-5 font-bold ">Cyber Intelligence</h1>
+        <a>利用規約</a>
+        <br />
+        <a className="block mt-3.5">プライバシーポリシー</a> 
+        
+        <p className="p-9">created by Riku Masukawa in 2025</p>
       </div>
 
     </div>
