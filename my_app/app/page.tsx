@@ -88,7 +88,7 @@ export default function Home() {
         <div className="relative z-10 text-black p-9 top-30 left-15">
           <h1 className="text-9xl font-bold">Cyber</h1>
           <h2 className="text-8xl ml-9 font-bold">Intelligence</h2>
-          <p className="mt-10 ml-3 text-5xl">ようこそ、ギーカーの世界へ !</p>
+          <p className="mt-10 ml-3 text-5xl">さあ、ギーカーの世界へ飛び込もう</p>
         </div>
       </div>
       <Separator className="border-b-black" />
