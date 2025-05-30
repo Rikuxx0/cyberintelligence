@@ -25,7 +25,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { CustomParticles } from "@/components/CustomParticles";
+import ThreeGlobe from "@/components/ThreeGlobe";
+
 
 
 
@@ -75,13 +76,13 @@ export default function Home() {
       </header>
 
       {/* サイバー系のかっこいいアニメーションを作成する */}
-      <div className="relative w-screen h-screen overflow-hidden bg-slate-500">
-        <div className="absolute top-0 left-0 w-full h-full object-cover z-[-1]">
-          <CustomParticles /> 
-        </div>
+      <div className="relative w-screen h-screen overflow-hidden">
+        <main className="absolute top-0 left-0 w-full h-full z-0" >
+          <ThreeGlobe />
+        </main>
 
         {/* 動画の上に重ねる */}
-        <div className="relative z-10 text-shadow-black p-9 top-30 left-15">
+        <div className="relative z-10 text-shadow-black p-9 mt-30 ml-15">
           <h1 className="text-9xl font-bold">Cyber</h1>
           <h2 className="text-8xl ml-9 font-bold">Intelligence</h2>
           <p className="mt-10 ml-3 text-5xl">さあ、ギーカーの世界へ飛び込もう</p>
