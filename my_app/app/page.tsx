@@ -25,6 +25,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import { CustomParticles } from "@/components/CustomParticles";
 
 
 
@@ -75,15 +76,9 @@ export default function Home() {
 
       {/* サイバー系のかっこいいアニメーションを作成する */}
       <div className="relative w-screen h-screen overflow-hidden bg-slate-500">
-        <video
-          autoPlay
-          loop
-          muted
-          className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
-        >
-          <source/>
-          Your browser does not support the video tag.
-        </video>
+        <div className="absolute top-0 left-0 w-full h-full object-cover z-[-1]">
+          <CustomParticles /> 
+        </div>
 
         {/* 動画の上に重ねる */}
         <div className="relative z-10 text-shadow-black p-9 top-30 left-15">
