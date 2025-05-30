@@ -5,7 +5,7 @@ import { css } from '@emotion/css';
 import Particles from '@tsparticles/react';
 import { loadFull } from 'tsparticles';
 import type { Engine } from '@tsparticles/engine';
-// import ParticlesParams from '../asset/particlesjs-config.json';
+import ParticlesParams from '../asset/particles.json';
 
 export const CustomParticles: React.FC = () => {
     const particlesInit = async (engine: Engine) =>{
@@ -17,8 +17,8 @@ export const CustomParticles: React.FC = () => {
         <Particles 
             id='tsparticles'
             className={styles.particles}
-            // init={particlesInit}
-            // options={ParticlesParams}
+            init={particlesInit}
+            options={ParticlesParams}
         />
     );
 };
