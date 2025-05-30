@@ -25,7 +25,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import SceneCanvas from "@/components/SceneCanvas";
 
 
 
@@ -76,9 +75,7 @@ export default function Home() {
 
       {/* サイバー系のかっこいいアニメーションをThree.jsで作成する */}
       <div className="relative w-screen h-screen overflow-hidden">
-        <main className="w-full h-screen">
-          <SceneCanvas />
-        </main>
+        
 
         {/* 動画の上に重ねる */}
         <div className="relative z-10 text-black p-9 top-30 left-15">
