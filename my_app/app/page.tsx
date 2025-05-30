@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/carousel"
 
 
+
 const cardContents = [
   { picture: "picture1", title: "Hello", description: "This is the first card." },
   { picture: "picture2", title: "Cyber", description: "Explore the digital world." },
