@@ -25,6 +25,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import SceneCanvas from "@/components/SceneCanvas";
 
 
 
@@ -75,15 +76,9 @@ export default function Home() {
 
       {/* サイバー系のかっこいいアニメーションをThree.jsで作成する */}
       <div className="relative w-screen h-screen overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
-        >
-          <source/>
-          Your browser does not support the video tag.
-        </video>
+        <main className="w-full h-screen">
+          <SceneCanvas />
+        </main>
 
         {/* 動画の上に重ねる */}
         <div className="relative z-10 text-black p-9 top-30 left-15">
