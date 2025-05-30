@@ -17,18 +17,14 @@ function Earth() {
 
     // テクスチャの読み込み
     const textureLoader = new THREE.TextureLoader();
-    const dayMap = textureLoader.load('/textures/planets/earth_day.jpg');
-    const bumpMap = textureLoader.load('/textures/planets/earth_bump.jpg');
-    const specularMap = textureLoader.load('/textures/earth_night.jpg');
-
+    const cyberMap = textureLoader.load('/textures/planets/light_earth.jpg');
+    
     return (
         <mesh ref={earthRef}>
-            <sphereGeometry args={[1, 64, 64]} />
+            <sphereGeometry args={[1.45, 64, 64]} />
             <meshPhongMaterial 
-                map={dayMap}
-                bumpMap={bumpMap}
+                map={cyberMap}
                 bumpScale={0.05}
-                specularMap={specularMap}
                 specular={new THREE.Color('white')}
             />
         </mesh>
@@ -37,10 +33,10 @@ function Earth() {
 
 export default function ThreeGlobe() {
     return (
-        <Canvas camera={{ position: [2, 1.5, 3], fov: 45}}>
+        <Canvas camera={{ position: [1, 1.5, 3], fov: 45}}>
             {/** 環境照明 */}
-            <ambientLight intensity={1} />
-            <pointLight color="#fff" position={[5, 3, 5]} intensity={1.2} />
+            <ambientLight intensity={1.5} />
+            <pointLight color="#fff" position={[5, 3, 5]} intensity={1.3} />
             {/* 星を背景に */}
             <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} />
             {/* 地球 */}

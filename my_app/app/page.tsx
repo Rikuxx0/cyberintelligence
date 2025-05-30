@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Menubar,
   MenubarMenu,
@@ -25,7 +27,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import { Button } from "@/components/ui/button";
 import ThreeGlobe from "@/components/ThreeGlobe";
+import React, { useRef } from "react";
+import { ChevronDown } from "lucide-react";
 
 
 
@@ -41,6 +46,15 @@ const cardContents = [
 
 
 export default function Home() {
+  const targetRef = useRef<HTMLDivElement>(null!);
+
+  const handleScroll = () => {
+    if (targetRef.current) {
+      targetRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
+  
   return (
     <div>
       {/* ヘッダー全体　*/}
@@ -76,8 +90,8 @@ export default function Home() {
       </header>
 
       {/* サイバー系のかっこいいアニメーションを作成する */}
-      <div className="relative w-screen h-screen overflow-hidden">
-        <main className="absolute top-0 left-0 w-full h-full z-0" >
+      <div className="relative w-screen h-screen overflow-hidden bg-slate-700">
+        <main className="absolute w-full h-full top-10 left-110 z-0">
           <ThreeGlobe />
         </main>
 
@@ -85,12 +99,18 @@ export default function Home() {
         <div className="relative z-10 text-shadow-black p-9 mt-30 ml-15">
           <h1 className="text-9xl font-bold">Cyber</h1>
           <h2 className="text-8xl ml-9 font-bold">Intelligence</h2>
-          <p className="mt-10 ml-3 text-5xl">さあ、ギーカーの世界へ飛び込もう</p>
+          <p className="mt-10 ml-3 text-4xl font-bold">さあ、ギーカーの世界へ飛び込もう</p>
+        </div>
+        <div className="flex items-center mt-6 ml-80">
+          <Button onClick={(handleScroll)} className="hover:opacity-80">
+            <ChevronDown className="animate-bounce mt-2" />
+          </Button>
+          
         </div>
       </div>
-      <Separator className="border-b-black" />
+      <Separator className="border-black" />
       {/*　アプリ簡易説明 */}
-      <div className="bg-neutral-900 text-white p-0 m-0">
+      <div ref={targetRef} className="bg-neutral-900 text-white p-0 m-0">
         <h2 className="p-5 text-5xl font-normal">What is Cyber Intelligence ?</h2>
         <ResizablePanelGroup direction="horizontal" className="w-screen h-screen">
           <ResizablePanel defaultSize={100} className="flex items-center justify-center p-8">
