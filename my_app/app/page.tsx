@@ -35,6 +35,7 @@ import { ChevronDown } from "lucide-react";
 
 
 
+
 const cardContents = [
   { picture: "picture1", title: "Hello", description: "This is the first card." },
   { picture: "picture2", title: "Cyber", description: "Explore the digital world." },
@@ -94,6 +95,7 @@ export default function Home() {
         <main className="absolute w-full h-full top-10 left-110 z-0">
           <ThreeGlobe />
         </main>
+
 
         {/* 動画の上に重ねる */}
         <div className="relative z-10 text-shadow-black p-9 mt-30 ml-15">
