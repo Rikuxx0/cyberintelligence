@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function community() {
+export default function Community() {
   return (
     <div>community page</div>
   )

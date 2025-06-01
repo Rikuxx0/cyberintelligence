@@ -1,8 +1,10 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import '@/app/globals.css';
 
+// Sidebar関連のライブラリ
 import SidebarComponent from '@/components/sidebar/top_sidebar';
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { SidebarProvider, SidebarTrigger, SidebarInset } from '@/components/ui/sidebar';
+
 
 
 const geistSans = Geist({
@@ -17,23 +19,28 @@ const geistMono = Geist_Mono({
 
 
 
-export default function TopLayout({children}: { children: React.ReactNode}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
+    
+        
+    
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <SidebarProvider>
                     {/* サイドバー */}
                     <SidebarComponent />
-
+                    
                     {/* メインコンテンツ */}
                     <div className="flex-1 relative p-4">
                         {/* トリガーボタン */}
-                        <div className="absolute top-2 left-1 z-50">
+                        <div className="absolute top-6 left-6 z-50">
                             <SidebarTrigger />
                         </div>
-                        <main className="flex-1 p-4">
-                            {children}
-                        </main>
+                        <SidebarInset>
+                            <main className="flex-1 p-8">
+                                {children}
+                            </main>
+                        </SidebarInset>
                     </div>
                 </SidebarProvider>
             </body>
