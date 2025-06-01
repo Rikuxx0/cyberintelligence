@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
 
-export default function login() {
+export default function Login() {
     return(
         <div className="flex justify-center items-center mt-51">
             <Card className="w-full max-w-sm">

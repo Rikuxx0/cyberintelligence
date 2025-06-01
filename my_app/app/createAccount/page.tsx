@@ -14,7 +14,7 @@
 
 
 
-export default function createAccount() {
+export default function CreateAccount() {
     return(
         <div className="flex justify-center items-center text-center mt-51">
             <Card className="w-full max-w-sm">
