@@ -31,6 +31,7 @@ import { Button } from "@/components/ui/button";
 import ThreeGlobe from "@/components/ThreeGlobe";
 import React, { useRef } from "react";
 import { ChevronDown } from "lucide-react";
+import Link from "next/link";
 
 
 
@@ -62,12 +63,14 @@ export default function Home() {
       <header className="flex justify-between items-center bg-black text-white px-6 py-4 shadow">
         {/* 左側のロゴ*/ }
         <div className="text-2xl font-bold tracking-wide transition hover:opacity-80">
-            Cyber Intelligence
+            <Link href="/">Cyber Intelligence</Link>
         </div>
         {/* 右側: メニュー */}
         <Menubar className="flex justify-end space-x-3 bg-black text-white p-4">
           <MenubarMenu>
-            <MenubarTrigger>Top</MenubarTrigger>
+            <Link href="/">
+              <MenubarTrigger>Top</MenubarTrigger>
+            </Link>
           </MenubarMenu>
           <NavigationMenu className="text-base">
             <NavigationMenuList className="flex gap-6">
@@ -82,10 +85,14 @@ export default function Home() {
             </NavigationMenuList>
           </NavigationMenu>
           <MenubarMenu>
-            <MenubarTrigger>Login</MenubarTrigger>
+            <Link href="/login">
+              <MenubarTrigger>Login</MenubarTrigger>
+            </Link>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger>Create Account</MenubarTrigger>
+          <Link href="/createAccount">
+              <MenubarTrigger>Create Account</MenubarTrigger>
+          </Link>
           </MenubarMenu>
         </Menubar>
       </header>
