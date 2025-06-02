@@ -88,6 +88,7 @@ export default function SidebarComponent() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      
       {/** ユーザー表示関係 */}
             <SidebarFooter>
               <NavUser user={data.user}/>
