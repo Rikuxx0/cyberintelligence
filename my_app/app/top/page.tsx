@@ -21,7 +21,14 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 
+
 import { ImagePlus, ClipboardList, ALargeSmall, Video, Phone, Search } from "lucide-react";
+
+//トレンドの型定義
+type Trend = {
+  tag: string
+  tweets: string
+}
 
 //　トレンドデータ
 const trends = [
@@ -31,13 +38,6 @@ const trends = [
   { tag: "AWS", tweets: "5,300件の投稿" },
   { tag: "Burp Suite", tweets: "1,700件の投稿" },
 ]
-
-type Trend = {
-  tag: string
-  tweets: string
-}
-
-
 
 // カテゴリごとのトレンドデータ
 const trendsByCategory: Record<string, Trend[]> = {
@@ -64,6 +64,12 @@ const trendsByCategory: Record<string, Trend[]> = {
 }
 
 
+
+
+
+
+
+
 export default function Top() {
   // ランダムに3カテゴリを抽出（クライアントサイド）
   const categories = useMemo(() => {
@@ -79,7 +85,7 @@ export default function Top() {
         direction="horizontal"
         className="rounded-lg border"
       >
-        <ResizablePanel defaultSize={29}>
+        <ResizablePanel defaultSize={70}>
           {/**クイック投稿機能 */}
           <div>
             <Card>
@@ -119,16 +125,18 @@ export default function Top() {
           <div>
             <Card className="p-4 space-y-4">
                 <CardContent>
-                    <Tabs>
+                    <Tabs defaultValue="followers">
                       <TabsList>
                         <TabsTrigger value="followers">フォロー中</TabsTrigger>
                         <TabsTrigger value="open">オープン</TabsTrigger>
                       </TabsList>
                       <TabsContent value="followers">
                         <Card className="w-full">
+
                           {/** フォロー中の通話の枠を表示 */}
-
-
+                          <TabsContent value="followers">
+                            
+                          </TabsContent>
 
                           <CardHeader>
                             <CardTitle className="text-lg font-bold">フォロー中の投稿</CardTitle>
@@ -145,9 +153,11 @@ export default function Top() {
                         </Card>
                       </TabsContent>
                       <TabsContent value="open">
+                        
                         {/** オープンの通話の枠を表示 */}
-
-
+                        <TabsContent value="open">
+                          
+                        </TabsContent>
 
                         <Card className="w-full">
                           <CardHeader>
@@ -170,7 +180,7 @@ export default function Top() {
           </div>
         </ResizablePanel>
         <ResizableHandle />
-        <ResizablePanel defaultSize={15}>
+        <ResizablePanel defaultSize={30}>
           <ResizablePanelGroup direction="vertical" className="rounded-lg border">
             <ResizablePanel defaultSize={10}>
               {/** 検索機能 */}
@@ -183,13 +193,13 @@ export default function Top() {
                 </CardContent>
               </Card>
             </ResizablePanel>
-            <ResizableHandle />
-            <ResizablePanel defaultSize={25}>
+            
+            <ResizablePanel defaultSize={90}>
               {/** タグジャンルからトレンド記事表示 */}
-              <div>
-                 <Card className="p-4 space-y-4 w-full">
-                    <CardContent>
-                      <Tabs defaultValue={categories[0]}>
+              <div className="h-full">
+                 <Card className="p-4 w-full h-full">
+                    <CardContent className="h-full flex flex-col">
+                      <Tabs defaultValue={categories[0]} className="h-full flex flex-col">
                         <TabsList>
                           {categories.map((cat) => (
                             <TabsTrigger key={cat} value={cat}>
@@ -199,8 +209,8 @@ export default function Top() {
                         </TabsList>
 
                         {categories.map((cat) => (
-                          <TabsContent key={cat} value={cat}>
-                            <Card>
+                          <TabsContent key={cat} value={cat} className="flex-1 overflow-y-auto">
+                            <Card className="h-full">
                               <CardHeader>
                                 <CardTitle className="text-lg font-bold">{cat}のトレンド</CardTitle>
                               </CardHeader>
