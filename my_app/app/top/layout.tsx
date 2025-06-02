@@ -2,7 +2,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import '@/app/globals.css';
 
 // Sidebar関連のライブラリ
-import SidebarComponent from '@/components/sidebar/top_sidebar';
+import SidebarComponent from '@/components/top_components/sidebar/top_sidebar';
 import { SidebarProvider, SidebarTrigger, SidebarInset } from '@/components/ui/sidebar';
 
 

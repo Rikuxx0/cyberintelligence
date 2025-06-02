@@ -1,7 +1,10 @@
 import React from 'react'
+import Search_form from '@/components/top_components/top/search_form'
 
 export default function Community() {
   return (
-    <div>community page</div>
-  )
+    <div>
+      <Search_form />
+    </div>
+  );
 }

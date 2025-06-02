@@ -20,10 +20,12 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import Search_form from "@/components/top_components/top/search_form";
 
 
-import { ImagePlus, ClipboardList, ALargeSmall, Video, Phone, Search } from "lucide-react";
+import { ImagePlus, ClipboardList, ALargeSmall, Video, Phone } from "lucide-react";
 
+//仮データ！！！
 //トレンドの型定義
 type Trend = {
   tag: string
@@ -62,9 +64,6 @@ const trendsByCategory: Record<string, Trend[]> = {
     { tag: "Bedrock", tweets: "1,400件の投稿" },
   ],
 }
-
-
-
 
 
 
@@ -184,14 +183,7 @@ export default function Top() {
           <ResizablePanelGroup direction="vertical" className="rounded-lg border">
             <ResizablePanel defaultSize={10}>
               {/** 検索機能 */}
-              <Card>
-                <CardContent>
-                  <div className="flex w-full h-full gap-1">
-                    <Search />
-                    <input className="w-full px-4 placeholder:text-sm placeholder:align-top border-none outline-none" type="search" placeholder="Search"/>
-                  </div>
-                </CardContent>
-              </Card>
+              <Search_form />
             </ResizablePanel>
             
             <ResizablePanel defaultSize={90}>
