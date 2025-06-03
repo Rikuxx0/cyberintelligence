@@ -26,35 +26,36 @@ import Trend_form from "@/components/top_components/top/trend_form";
 
 import { ImagePlus, ClipboardList, ALargeSmall, Video, Phone } from "lucide-react";
 
-//仮データ！！！
-//　トレンドデータ
-const trends = [
-  { tag: "TypeScript", tweets: "12,300件の投稿" },
-  { tag: "ChatGPT", tweets: "28,500件の投稿" },
-  { tag: "React", tweets: "9,100件の投稿" },
-  { tag: "AWS", tweets: "5,300件の投稿" },
-  { tag: "Burp Suite", tweets: "1,700件の投稿" },
-]
+  //仮データ！！！
+  //　トレンドデータ
+  const trends = [
+    { tag: "TypeScript", tweets: "12,300件の投稿" },
+    { tag: "ChatGPT", tweets: "28,500件の投稿" },
+    { tag: "React", tweets: "9,100件の投稿" },
+    { tag: "AWS", tweets: "5,300件の投稿" },
+    { tag: "Burp Suite", tweets: "1,700件の投稿" },
+  ]
 
-//ダミーデータ
-const dummyPosts = [
-  {
-    id: '1',
-    title: 'React Hooksの使い方',
-    content: 'useStateとuseEffectについて解説します。',
-    tags: ['React', 'Hooks'],
-  },
-  {
-    id: '2',
-    title: 'TypeScript型の基礎',
-    content: 'Union型やIntersection型について説明します。',
-    tags: ['TypeScript'],
-  },
-];
+  //ダミーデータ
+  const dummyPosts = [
+    {
+      id: '1',
+      title: 'React Hooksの使い方',
+      content: 'useStateとuseEffectについて解説します。',
+      tags: ['React', 'Hooks'],
+    },
+    {
+      id: '2',
+      title: 'TypeScript型の基礎',
+      content: 'Union型やIntersection型について説明します。',
+      tags: ['TypeScript'],
+    },
+  ];
 
 
 
 export default function Top() {
+
   return (
     <div>
       <ResizablePanelGroup
