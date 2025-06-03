@@ -162,8 +162,8 @@ export default function Top() {
             <ResizablePanel defaultSize={10}>
               {/** 検索機能 */}
               <Search_form posts={dummyPosts}/>
+              <br />
             </ResizablePanel>
-            
             <ResizablePanel defaultSize={90}>
               {/** タグジャンルからトレンド記事表示 */}
               <Trend_form />

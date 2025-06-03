@@ -26,6 +26,7 @@ export default function Community() {
   return (
     <div>
       <Search_form posts={dummyPosts}/>
+      <br />
       <Trend_form />
     </div>
   );
