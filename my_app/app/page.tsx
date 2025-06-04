@@ -97,7 +97,7 @@ export default function Home() {
         </Menubar>
       </header>
 
-      {/* サイバー系のかっこいいアニメーションを作成する */}
+      {/* サイバー系のアニメーションを作成する */}
       <div className="relative w-screen h-screen overflow-hidden bg-slate-700">
         <main className="absolute w-full h-full top-10 left-110 z-0">
           <ThreeGlobe />
