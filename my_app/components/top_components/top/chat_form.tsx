@@ -78,7 +78,7 @@ export default function Chat_form({ accountName  }: Props) {
       <Card className="rounded-none border-t px-4 py-3">
         <form onSubmit={handleSend} className="flex gap-2">
           <Input
-            placeholder="Type your message..."
+            placeholder="メッセージを送信"
             className="flex-1"
             value={input}
             onChange={(e) => setInput(e.target.value)}

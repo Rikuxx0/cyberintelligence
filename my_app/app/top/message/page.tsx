@@ -25,7 +25,7 @@ export default function Message() {
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel defaultSize={50}>
-        <div className="flex h-screen items-center justify-center">
+        <div className="flex h-screen items-start pb-15 justify-center">
           <Chat_form accountName={selectedAccount} />
         </div>
       </ResizablePanel>
