@@ -17,13 +17,13 @@ export default function Message()  {
         className="w-screen rounded-lg border"
     >
       <ResizablePanel defaultSize={50}>
-        <div className="flex h-screen items-center justify-center p-6">
+        <div className="flex h-screen items-center justify-center">
           <Message_list />
         </div>
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel defaultSize={50}>
-        <div className="flex h-screen items-center justify-center p-6">
+        <div className="flex h-screen items-center justify-center">
           <Chat_form />
         </div>
       </ResizablePanel>

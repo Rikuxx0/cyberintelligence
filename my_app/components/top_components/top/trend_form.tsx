@@ -60,7 +60,7 @@ export default function Trend_form() {
   
     return (
     <div className="h-full">
-        <Card className="p-4 w-full h-full">
+        <Card className="w-full h-full">
             <CardContent className="h-full flex flex-col">
                 <Tabs defaultValue={categories[0]} className="h-full flex flex-col">
                     <TabsList>

@@ -10,7 +10,6 @@ import {
 import { Input } from "@/components/ui/input";
 
 import {
-  ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
@@ -156,7 +155,6 @@ export default function Top() {
             </Card>
           </div>
         </ResizablePanel>
-        <ResizableHandle />
         <ResizablePanel defaultSize={30}>
           <ResizablePanelGroup direction="vertical" className="rounded-lg border">
             <ResizablePanel defaultSize={10}>
