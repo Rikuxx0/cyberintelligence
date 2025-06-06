@@ -98,3 +98,5 @@ export default function Trend_form() {
     </div>
   )
 }
+
+//書き換える必要あり

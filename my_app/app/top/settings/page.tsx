@@ -4,14 +4,13 @@ import React, { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { Switch } from "@/components/ui/switch"
 import { Separator } from "@/components/ui/separator"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function Settings() {
   const [name, setName] = useState("山田 太郎")
   const [email, setEmail] = useState("taro@example.com")
-  const [notifications, setNotifications] = useState(true)
+ 
   
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-8">
