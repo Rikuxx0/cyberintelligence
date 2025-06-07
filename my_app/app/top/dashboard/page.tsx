@@ -26,13 +26,23 @@ export default function Dashboard() {
     lastLogin: "2025/06/03",
   };
 
-  //最近のアクシビティ
+  //フォローしている技術タグ
+  const followingTags = [
+    { name: "セキュリティ", posts: 156, color: "#ff0000" },
+    { name: "逆アセンブル", posts: 89, color: "#00ff00" },
+    { name: "OS", posts: 234, color: "#0000ff" },
+    { name: "ネットワーク", posts: 67, color: "#ff00ff" },
+  ]
+
+  //最近のアクシビティの投稿
   const recentActivity = [
     { type: "post", title: "SQLインジェクション解析完了", time: "２週間前", tag: "セキュリティ" },
     { type: "comment", title: "マルウェア解析スレッドにコメント", time: "４時間前", tag: "逆アセンブル" },
     { type: "follow", title: "OSINTタグをフォロー開始", time: "１日前", tag: "OSINT"},
     { type: "favorite", title: "ペネトレ記事をお気に入り追加", time: "２日前", tag: "ペネトレーションテスト"}
   ]
+
+  
 
   return (
     <div className="mx-auto p-6 space-y-6">
@@ -56,6 +66,25 @@ export default function Dashboard() {
           </div>
         </CardContent>
       </Card>
+
+
+      {/**　　フォローしているタグ */}
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            フォローしている技術タグ
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div>
+            {followingTags.map((tag, index) => (
+              <div></div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+
 
       
       <Card>
@@ -96,39 +125,36 @@ export default function Dashboard() {
 
      
       <div className="grid grid-cols-1 lg:grid-col-2 gap-6">
-         {/** 最近のアクティビティ */}
+         {/** 最近のアクティビティの投稿 */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              <Activity />
-              最近のアクティビティ
+            <CardTitle className="flex itmes-center">
+              <Activity className="mr-2 h-5 w-5" />
+              最近の投稿
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div>
-              {recentActivity.map((acitvity, index) => (
+            <div className="space-y-4">
+              {recentActivity.map((activity, index) => (
                 <div
                   key={index}
+                  className="flex items-start space-x-3 p-3 round border transition-colors"
                 >
-                  <div></div>
-                    <p></p>
-                    <div>
-                      <Badge>
-                        {acitvity.tag}
+                <div className="flex-1">
+                    <p className="text-sm">{activity.title}</p>
+                    <div className="flex items-center space-x-2 mt-1">
+                      <Badge variant="outline" className="text-xs">
+                        {activity.tag}
                       </Badge>
-                      <span>{acitvity.time}</span>
+                      <span className="text-sm">{activity.time}</span>
                     </div>
+                  </div>
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
-
-        {/** フォロー中のタグの投稿 */}
-
       </div>
-
-
     </div>
   )
 }
