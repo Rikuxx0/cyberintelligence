@@ -27,6 +27,7 @@ export default function Search_form({ posts }: Props) {
   const [submittedKeyword, setSubmittedKeyword] = useState(''); //提出する時のワードの保持
   const [open, setOpen] = useState(false); // ポップオーバー開閉制御
 
+
   //検索フォームのサイズによって、検索結果のサイズの変化
   const searchBoxRef = useRef<HTMLDivElement | null>(null);
   const [searchBoxWidth, setSearchBoxWidth] = useState<number | null>(null);
@@ -40,11 +41,14 @@ export default function Search_form({ posts }: Props) {
 
  
 //検索する時のフィルター
-  const filteredPosts = posts.filter((post) =>
-      post.tags.some((tag) => 
-        tag.toLowerCase().includes(submittedKeyword.toLowerCase())
-      )
-    );
+const keywordLower = submittedKeyword.toLowerCase();
+
+const filteredPosts = posts.filter((post) => {
+  const tagMatches = post.tags.some((tag) => {
+    return tag.toLowerCase().includes(keywordLower);
+  });
+  return tagMatches;
+});
 
   
   //検索し、enterを押すためのハンドラ
@@ -55,6 +59,24 @@ export default function Search_form({ posts }: Props) {
       setOpen(true); // Enter で開く
     };
   }
+
+  //ポストされた記事の生成関数
+  function PostCard({ post }: { post: Post }) {
+    return (
+      <Card className="w-full">
+        <CardContent className="space-y-1 p-4">
+          <p className="font-semibold">{post.title}</p>
+          <p className="text-sm text-gray-500">{post.content}</p>
+          <div className="flex gap-2 mt-1 text-xs text-blue-600">
+            {post.tags.map((tag, i) => (
+              <span key={i}>#{tag}</span>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
 
   return (
     <>
@@ -83,23 +105,10 @@ export default function Search_form({ posts }: Props) {
           </div>
       </PopoverTrigger> 
       <PopoverContent style={{ width: searchBoxWidth ?? 'auto' }}>
-        {/** Enter 押して submittedKeyword がある時だけ表示 */}
         <div className="space-y-3">
-          {submittedKeyword === '' && open ? (
-            <div>気になる技術を入力してみよう</div>
-          ) : filteredPosts.length > 0 ? (
+          {filteredPosts.length > 0 ? (
             filteredPosts.map((post) => (
-              <Card key={post.id} className='w-full'>
-                <CardContent className="space-y-1 p-4">
-                  <p className="font-semibold">{post.title}</p>
-                  <p className="text-sm text-gray-500">{post.content}</p>
-                  <div className="flex gap-2 mt-1 text-xs text-blue-600">
-                    {post.tags.map((tag, i) => (
-                      <span key={i}>#{tag}</span>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+              <PostCard key={post.id} post={post} />
             ))
           ) : (
             <p className="text-sm text-muted-foreground">
@@ -109,6 +118,9 @@ export default function Search_form({ posts }: Props) {
         </div>
       </PopoverContent>
       </Popover>
+      <div className='flex justify-center items-center mt-30 font-bold'>
+        今、何が投稿されているか調べてみよう！
+      </div>
     </>
   );
 }

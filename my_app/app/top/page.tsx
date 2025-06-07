@@ -20,7 +20,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import Search_form from "@/components/top_components/top/search_form";
-import Trend_form from "@/components/top_components/top/trend_form";
+
 
 
 import { ImagePlus, ClipboardList, ALargeSmall, Video, Phone } from "lucide-react";
@@ -156,17 +156,7 @@ export default function Top() {
           </div>
         </ResizablePanel>
         <ResizablePanel defaultSize={30}>
-          <ResizablePanelGroup direction="vertical" className="rounded-lg border">
-            <ResizablePanel defaultSize={10}>
-              {/** 検索機能 */}
-              <Search_form posts={dummyPosts}/>
-              <br />
-            </ResizablePanel>
-            <ResizablePanel defaultSize={90}>
-              {/** タグジャンルからトレンド記事表示 */}
-              <Trend_form />
-            </ResizablePanel>
-          </ResizablePanelGroup>
+          <Search_form posts={dummyPosts}/>
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>

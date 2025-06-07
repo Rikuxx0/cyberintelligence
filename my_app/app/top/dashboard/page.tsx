@@ -71,15 +71,26 @@ export default function Dashboard() {
       {/**　　フォローしているタグ */}
       <Card>
         <CardHeader>
-          <CardTitle>
+          <CardTitle className="flex items-center">
             フォローしている技術タグ
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div>
+          <div className="space-y-3">
             {followingTags.map((tag, index) => (
-              <div></div>
-            )}
+              <div
+                key={index}
+                className="flex items-center justify-between p-3 rounded border transition-colors"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: tag.color }}></div>
+                  <span>{tag.name}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm">{tag.posts} posts</span>
+                </div>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
