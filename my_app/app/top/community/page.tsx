@@ -1,69 +1,50 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Users, MessageSquare, Search, Plus, Heart, Eye, Clock } from "lucide-react"
 
+import { supabase } from "@/lib/supabaseClient"
+
+
+type Post = {
+  id: number
+  title: string
+  content: string
+  author: string
+  tags: string[]
+  type: string
+  likes: number
+  views: number
+  replies: number
+  createdAt: string
+}
+
+
+
 export default function Community() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedTag, setSelectedTag] = useState("all")
+  const [posts, setPosts] = useState<Post[]>([]) // stateに変更
 
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const { data, error } = await supabase.from("posts").select("*").order("CreatedAt", {ascending: false})
+
+      if (error) {
+        console.error("Error fetching posts", error)
+      } else {
+        setPosts(data || [])
+      }
+    }
+    fetchPosts()
+  }, [])
 
   // 仮ベースデータ　-> dummyPostsと統合
-  const posts = [
-    {
-      id: 1,
-      title: "SQLインジェクションの新しい手法について",
-      content:
-        "最近発見されたSQLインジェクションの新しい手法について議論しましょう。従来のWAFをバイパスする可能性があります。",
-      author: "cyber_ghost",
-      tags: ["セキュリティ", "Web"],
-      type: "discussion",
-      likes: 24,
-      views: 156,
-      replies: 8,
-      createdAt: "2時間前",
-    },
-    {
-      id: 2,
-      title: "マルウェア解析環境の構築",
-      content: "安全なマルウェア解析環境を構築するためのベストプラクティスを共有します。",
-      author: "malware_hunter",
-      tags: ["マルウェア解析", "セキュリティ"],
-      type: "tutorial",
-      likes: 42,
-      views: 289,
-      replies: 15,
-      createdAt: "4時間前",
-    },
-    {
-      id: 3,
-      title: "CTF Writeup: Binary Exploitation",
-      content: "先週のCTFで出題されたバイナリ問題のWriteupです。ROPチェーンの構築がポイントでした。",
-      author: "red_team_lead",
-      tags: ["CTF", "逆アセンブル"],
-      type: "writeup",
-      likes: 67,
-      views: 445,
-      replies: 23,
-      createdAt: "1日前",
-    },
-    {
-      id: 4,
-      title: "ネットワーク侵入検知システムの実装",
-      content: "Pythonを使ったシンプルなIDSの実装方法について解説します。",
-      author: "network_ninja",
-      tags: ["ネットワーク", "Python"],
-      type: "tutorial",
-      likes: 31,
-      views: 198,
-      replies: 12,
-      createdAt: "2日前",
-    },
-  ]
+  
 
   const tags = ["all", "セキュリティ", "逆アセンブル", "OS", "ネットワーク", "マルウェア解析", "CTF", "Web"]
 
