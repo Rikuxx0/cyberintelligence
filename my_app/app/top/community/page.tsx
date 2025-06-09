@@ -31,15 +31,18 @@ export default function Community() {
   const [posts, setPosts] = useState<Post[]>([]) // stateに変更
 
   useEffect(() => {
+    // アロー関数
     const fetchPosts = async () => {
       const { data, error } = await supabase.from("posts").select("*").order("CreatedAt", {ascending: false})
 
+      // エラーハンドリング処理
       if (error) {
         console.error("Error fetching posts", error)
       } else {
         setPosts(data || [])
       }
     }
+    
     fetchPosts()
   }, [])
 
