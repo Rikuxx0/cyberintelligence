@@ -36,7 +36,7 @@ export default function Search_form() {
       //id,name ,content, tagsを　search_form.tsx用に変換
       const mapped = data.map((post) => ({
         id: post.id,
-        title: post.name, //問題あり
+        title: post.title, //問題あり
         content: post.content,
         tags: post.tags || [],
       }))
@@ -118,7 +118,7 @@ export default function Search_form() {
                               <Input 
                                 className="w-full px-4 placeholder:text-sm placeholder:align-top border-none outline-none" 
                                 type="search" 
-                                placeholder="Search" 
+                                placeholder="Search tags" 
                                 value={keyword} 
                                 onChange={(e) => setKeyword(e.target.value.replace(/^#/, ''))}
                                 onKeyDown={handleKey}

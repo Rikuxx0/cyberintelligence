@@ -1,14 +1,11 @@
 import React from "react";
 
-
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input";
 
 import {
   ResizablePanel,
@@ -20,11 +17,8 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import Quick_search_form from "@/components/top_components/top/quick_post_form";
 import Search_form from "@/components/top_components/top/search_form";
-
-
-
-import { ImagePlus, ClipboardList, ALargeSmall, Video, Phone } from "lucide-react";
 
 
 
@@ -50,41 +44,8 @@ export default function Top() {
       >
         <ResizablePanel defaultSize={70}>
           {/**クイック投稿機能 */}
-          <div>
-            <Card>
-              <CardContent>
-                <div className="flex w-full gap-1">
-                  <Input className="w-full h-20 px-4 placeholder:text-sm placeholder:align-top" type="text" placeholder="気軽につぶやいてみよう！ (TypeScript, React, Burp Suite, ChatGPT, AWS など..)" />
-                </div>
-              </CardContent>
-              <CardContent>
-                 {/* 左側 */}
-                <div className="flex items-center justify-between w-full gap-2">
-                  <Button variant="default" className="font-bold">
-                    <Phone />
-                  </Button>
-                  <Button variant="default" className="font-bold">
-                    <Video />
-                  </Button>
-                  <Button  variant="default" className="font-bold">
-                    <ALargeSmall />
-                  </Button>
-                  <Button variant="default" className="font-bold">
-                    <ImagePlus />
-                  </Button>
-                  <Button variant="default" className="font-bold">
-                    <ClipboardList />
-                  </Button>
-
-                  {/* 右側 */}
-                  <Button type="submit" variant="default" className="font-bold ml-auto">
-                    投稿
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          {/** 投稿一覧 */}
+          <Quick_search_form />
+          {/** 人気投稿タグ一覧 */}
           <div>
             <Card className="p-4 space-y-4">
                 <CardContent>
