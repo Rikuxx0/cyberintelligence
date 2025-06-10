@@ -28,13 +28,14 @@ type Post = {
 export default function Community() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedTag, setSelectedTag] = useState("all")
-  const [posts, setPosts] = useState<Post[]>([]) // stateに変更
+  const [posts, setPosts] = useState<Post[]>([]) 
 
   useEffect(() => {
     // アロー関数
     const fetchPosts = async () => {
-      const { data, error } = await supabase.from("posts").select("*").order("CreatedAt", {ascending: false})
+      const { data, error } = await supabase.from("posts").select("*").order("created_at", { ascending: true})
 
+      
       // エラーハンドリング処理
       if (error) {
         console.error("Error fetching posts", error)
@@ -46,7 +47,7 @@ export default function Community() {
     fetchPosts()
   }, [])
 
-  // 仮ベースデータ　-> dummyPostsと統合
+  
   
 
   const tags = ["all", "セキュリティ", "逆アセンブル", "OS", "ネットワーク", "マルウェア解析", "CTF", "Web"]
