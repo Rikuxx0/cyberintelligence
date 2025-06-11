@@ -5,7 +5,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Users, MessageSquare, Search, Plus, Heart, Eye, Clock } from "lucide-react"
+
+import Quick_search_form from "@/components/top_components/top/quick_post_form"
 
 import { supabase } from "@/lib/supabaseClient"
 
@@ -86,10 +89,19 @@ export default function Community() {
             </h1>
             <p className="mt-2">{">"} 知識を共有し、共に成長する場所</p>
           </div>
-          <Button className="bg-black hover:bg-gray-900 text-white">
-            <Plus className="mr-2 h-4 w-4" />
-            新規投稿
-          </Button>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button className="bg-black hover:bg-gray-900 text-white">
+                <Plus className="mr-2 h-4 w-4" />
+                新規投稿
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[600px] max-w-full p-4">
+              <div className="w-full">
+                <Quick_search_form />
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
 
         {/* Search and Filter */}
