@@ -3,6 +3,9 @@
  import { supabase } from "@/lib/supabaseClient"
  import { useRouter } from "next/navigation";
  import Link from "next/link";
+
+
+
  
  import { Button } from "@/components/ui/button"
  import {
@@ -38,7 +41,7 @@ export default function CreateAccount() {
 
         //サインアップの際のエラー
         if (error) {
-            alert("Sign Up Error:" + error.message);
+            alert("Sign Up Error");
             return;
         }
 
@@ -46,7 +49,7 @@ export default function CreateAccount() {
         const user = data.user;
         if (!user) return;
 
-       //SHA-256でメールアドレスのハッシュ化
+        
         
         //　プロフィール情報をデータベースに保存
         const { error: profileError} = await supabase.from("profiles").insert([
@@ -55,23 +58,24 @@ export default function CreateAccount() {
                 user_id: user.id,
                 avater_url: null,
                 bio: "",
-                email: data.user?.email
+                email: user.email,
             },
         ]);
 
 
-        //プロフィール作成エラーハンドリング
-        if (profileError) {
-            alert("Making Profile Error : " + profileError.message);
-        } else {
-            alert("Successful Creating Your Account!")
-            router.push("/top")
+            //プロフィール作成エラーハンドリング
+            if (profileError) {
+                alert("Making Profile Error");
+            } else {
+                alert("Successful Creating Your Account!")
+                router.push("/top")
+            }
         }
-    };
+    
     
    
     return(
-        <div className="flex justify-center items-center text-center mt-51">
+        <div className="flex justify-center items-center text-center mt-25">
             <Card className="w-full max-w-sm">
                 <CardHeader>
                     <CardTitle className="font-bold">Cyber Intelligence Account</CardTitle>
