@@ -1,3 +1,4 @@
+"use client"
 
 import {
   Card,
@@ -11,20 +12,68 @@ import Link from "next/link";
 import { Activity } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+import { supabase } from "@/lib/supabaseClient";
+import { useEffect, useState } from "react";
+
+
+
+type SupabaseUser = {
+  user_id: string;
+  email: string,
+  avatar_url?: string;
+  bio: string;
+  username: string;
+  posts: number;
+  follow: number;
+  followers: number;
+  comments: number;
+
+}
 
 export default function Dashboard() {
   //　ユーザー情報
-  const user = {
-    name: "John Doe",
-    email: "john@example.com",
-    bio: "フロントエンド開発者 / サイバーセキュリティ愛好家",
-    avatarUrl: "https://github.com/shadcn.png",
-    posts: 12,
-    follow: 5,
-    followers: 21,
-    comments: 45,
-    lastLogin: "2025/06/03",
-  };
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+ 
+
+  useEffect(() => {
+    const  fetchUser = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        console.warn("セッションが存在しません（ログインしていない可能性）");
+        return;
+      }
+      
+      
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+
+      if (error || !user ) {
+        console.error("ユーザー取得エラー:", error);
+        return;
+      } 
+
+      const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("user_id", user.id)
+      .single();
+
+      if (profileError) {
+        console.error("プロフィール取得エラー:", profileError);
+        return;
+      }
+      setUser(profile);
+    };
+
+    fetchUser();
+  }, [])
+
+
 
   //フォローしている技術タグ
   const followingTags = [
@@ -46,17 +95,18 @@ export default function Dashboard() {
 
   return (
     <div className="mx-auto p-6 space-y-6">
+    { user ? (
       <Card className="flex w-full">
         <CardHeader>
           <CardTitle>プロフィール</CardTitle>
         </CardHeader>
         <CardContent className="flex gap-6">
           <Avatar className="w-24 h-24">
-            <AvatarImage src={user.avatarUrl} />
+            <AvatarImage src={user.avatar_url} />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
           <div className="space-y-1">
-            <h2 className="text-xl font-semibold">{user.name}</h2>
+            <h2 className="text-xl font-semibold">{user.username}</h2>
             <p className="text-muted-foreground">{user.email}</p>
             <p className="text-sm mt-2">{user.bio}</p>
             <div className="mt-4 flex gap-2">
@@ -66,6 +116,9 @@ export default function Dashboard() {
           </div>
         </CardContent>
       </Card>
+    ) : (
+      <p>読み込み中...</p>
+    )}
 
 
       {/**　　フォローしているタグ */}
@@ -105,32 +158,28 @@ export default function Dashboard() {
         <CardContent className="flex flex-row text-center justify-center gap-x-30">
           <Link href={`/top/dashboard/posts`}>
             <div>
-              <p className="text-2xl font-bold">{user.posts}</p>
+              <p className="text-2xl font-bold">{user?.posts}</p>
               <p className="text-sm text-muted-foreground">投稿</p>
             </div>
           </Link>
           <Link href={`/top/dashboard/follow`}>
             <div>
-              <p  className="text-2xl font-bold" >{user.follow}</p>
+              <p  className="text-2xl font-bold" >{user?.follow}</p>
               <p className="text-sm text-muted-foreground">フォロー数</p>
             </div>
           </Link>
           <Link href={`/top/dashboard/followers`}>
             <div>
-              <p className="text-2xl font-bold">{user.followers}</p>
+              <p className="text-2xl font-bold">{user?.followers}</p>
               <p className="text-sm text-muted-foreground">フォロワー数</p>
             </div>
           </Link>
            <Link href={`/top/dashboard/comments`}>
             <div>
-              <p className="text-2xl font-bold">{user.comments}</p>
+              <p className="text-2xl font-bold">{user?.comments}</p>
               <p className="text-sm text-muted-foreground">コメント</p>
             </div>
           </Link>
-          <div>
-            <p className="text-2xl font-bold">{user.lastLogin}</p>
-            <p className="text-sm text-muted-foreground">最終ログイン</p>
-          </div>
         </CardContent>
       </Card>
 
