@@ -31,44 +31,55 @@ export default function CreateAccount() {
     const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        //email, passwordで登録
-        const { data,  error } = await supabase.auth.signUp({
-            email,
-            password,
-        });
+        try {
+            console.log('Attempting signup with email:', email);
 
-        //サインアップの際のエラー
-        if (error) {
-            alert("Sign Up Error");
-            return;
-        }
+            //email, passwordで登録
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+            });
 
-        //ユーザー名保持
-        const user = data.user;
-        if (!user) return;
+            //サインアップの際のエラー
+            if (error) {
+                alert(`アカウント作成エラー: ${error.message}`);
+                console.error('Sign up error:', error);
+                return;
+            }
 
-        
-        
-        //　プロフィール情報をデータベースに保存
-        const { error: profileError} = await supabase.from("profiles").insert([
-            {
-                username: username,
-                user_id: user.id,
-                avater_url: null,
-                bio: "",
-                email: user.email,
-            },
-        ]);
+            //ユーザー名保持
+            const user = data.user;
+            if (!user) {
+                alert('ユーザー作成に失敗しました');
+                return;
+            }
 
+            console.log('User created:', user.id);
+
+            //　プロフィール情報をデータベースに保存
+            const { error: profileError } = await supabase.from("profiles").insert([
+                {
+                    username: username,
+                    user_id: user.id,
+                    avater_url: null,
+                    bio: "",
+                    email: user.email,
+                },
+            ]);
 
             //プロフィール作成エラーハンドリング
             if (profileError) {
-                alert("Making Profile Error");
+                alert(`プロフィール作成エラー: ${profileError.message}`);
+                console.error('Profile creation error:', profileError);
             } else {
-                alert("Successful Creating Your Account!")
+                alert("アカウント作成が完了しました！")
                 router.push("/top")
             }
+        } catch (err) {
+            console.error('Signup error:', err);
+            alert('アカウント作成中にエラーが発生しました');
         }
+    }
     
     
    

@@ -1,16 +1,24 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Users, MessageSquare, Search, Plus, Heart, Eye, Clock } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Users, MessageSquare, Search, Plus, Heart, Eye, Clock, MoreVertical, Trash2, Edit } from "lucide-react"
 
 import Quick_search_form from "@/components/top_components/top/quick_post_form"
 
 import { supabase } from "@/lib/supabaseClient"
+import type { User } from '@supabase/supabase-js'
 
 
 type Post = {
@@ -24,22 +32,27 @@ type Post = {
   views: number
   replies: number
   createdAt: string
+  user_id?: string
 }
 
 
 
 export default function Community() {
+  const router = useRouter()
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedTag, setSelectedTag] = useState("all")
-  const [posts, setPosts] = useState<Post[]>([]) 
+  const [posts, setPosts] = useState<Post[]>([])
+  const [currentUser, setCurrentUser] = useState<User | null>(null) 
 
   useEffect(() => {
-    // アロー関数
-    const fetchPosts = async () => {
-      const { data, error } = await supabase.from("posts").select("*").order("created_at", { ascending: true})
+    const fetchData = async () => {
+      // 現在のユーザーを取得
+      const { data: { user } } = await supabase.auth.getUser()
+      setCurrentUser(user)
 
+      // 投稿を取得
+      const { data, error } = await supabase.from("posts").select("*").order("created_at", { ascending: true})
       
-      // エラーハンドリング処理
       if (error) {
         console.error("Error fetching posts", error)
       } else {
@@ -47,7 +60,7 @@ export default function Community() {
       }
     }
     
-    fetchPosts()
+    fetchData()
   }, [])
 
   
@@ -77,6 +90,27 @@ export default function Community() {
     const matchesTag = selectedTag === "all" || post.tags.includes(selectedTag)
     return matchesSearch && matchesTag
   })
+
+  const handleDelete = async (postId: number) => {
+    if (!currentUser) return
+
+    try {
+      const { error } = await supabase
+        .from("posts")
+        .delete()
+        .eq("id", postId)
+        .eq("user_id", currentUser.id)
+
+      if (error) {
+        console.error("Delete error:", error)
+      } else {
+        // 投稿リストを更新
+        setPosts(posts.filter(post => post.id !== postId))
+      }
+    } catch (err) {
+      console.error("Delete error:", err)
+    }
+  }
 
   return (
       <div className="space-y-6">
@@ -148,10 +182,33 @@ export default function Community() {
                         <Clock className="mr-1 h-3 w-3" />
                         {post.createdAt}
                       </span>
-                    <h3 className="text-xl font-semibold text-black mb-2 hover:text-gray-700 cursor-pointer">
+                      {/* 投稿者本人のみ削除ボタンを表示 */}
+                      {currentUser && post.user_id === currentUser.id && (
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="sm">
+                              <MoreVertical className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => router.push(`/top/community/${post.id}/edit`)}>
+                              <Edit className="mr-2 h-4 w-4" />
+                              編集
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleDelete(post.id)} className="text-red-600">
+                              <Trash2 className="mr-2 h-4 w-4" />
+                              削除
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      )}
+                    </div>
+                    <h3 
+                      className="text-xl font-semibold text-black mb-2 hover:text-gray-700 cursor-pointer"
+                      onClick={() => router.push(`/top/community/${post.id}`)}
+                    >
                       {post.title}
                     </h3>
-                  </div>
 
                     <p className="text-black mb-4 line-clamp-2">{post.content}</p>
 
