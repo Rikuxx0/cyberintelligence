@@ -41,6 +41,7 @@ export default function Quick_search_form() {
       title,
       content,
       author: user.email, //　または　username　を取得して指定
+      user_id: user.id,
       tags: tagArray,
       type,
     });

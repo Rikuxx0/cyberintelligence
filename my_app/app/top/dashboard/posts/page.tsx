@@ -273,10 +273,6 @@ export default function DashboardPosts() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => router.push(`/top/community/${post.id}/edit`)}>
-                          <Edit className="mr-2 h-4 w-4" />
-                          編集
-                        </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => handleDelete(post.id)} className="text-red-600">
                           <Trash2 className="mr-2 h-4 w-4" />
                           削除
