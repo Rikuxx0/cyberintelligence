@@ -1,17 +1,63 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
+import { supabase } from "@/lib/supabaseClient";
+import { deleteUser } from "@/actions/deleteUser"
+
 export default function Settings() {
-  const [name, setName] = useState("山田 太郎")
-  const [email, setEmail] = useState("taro@example.com")
+  const [name, setName] = useState("山田 太郎") //仮データ
+  const [email, setEmail] = useState("taro@example.com") //仮データ
+  const [userId, setUserId] = useState<string | null>(null);
  
-  
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) setUserId(user.id);
+    };
+    fetchUser();
+  }, []);
+
+  // アカウント削除機能のハンドリング
+  const handleDeleteAccount = async () => {
+    if (!userId) {
+      alert("ユーザー情報が見つかりません。ログインしてください。");
+      return;
+    }
+
+    const confirmed = confirm("本当にアカウントを削除しますか？この操作は取り消せません。");
+    if (!confirmed) return;
+
+    try {
+        await deleteUser(userId);
+        await supabase.auth.signOut();
+        alert("アカウントが削除されました。");
+        window.location.href = "/";
+    } catch (error) {
+        console.error("削除エラー:", error);
+        alert("削除に失敗しました。");
+    }
+
+
+  }
+
+
+  //　ログアウト機能の」ハンドリング
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error("ログアウトエラー:", error.message);
+    } else {
+      window.location.href = "/";
+    }
+  };
+
+
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-8">
       <h1 className="text-3xl font-bold">設定</h1>
@@ -40,9 +86,10 @@ export default function Settings() {
         <CardHeader>
           <CardTitle>アカウント操作</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <Button variant="outline">パスワードを変更</Button>
-          <Button variant="destructive">アカウントを削除</Button>
+        <CardContent className="grid grid-rows-3 gap-2">
+          <Button variant="outline">パスワード変更</Button>
+          <Button variant="default" onClick={handleLogout}>ログアウト</Button>
+          <Button variant="destructive" onClick={handleDeleteAccount}>アカウントを削除</Button>
         </CardContent>
       </Card>
 

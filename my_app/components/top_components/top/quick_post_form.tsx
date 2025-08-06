@@ -110,7 +110,7 @@ export default function Quick_search_form() {
                   <Button variant="default" className="font-bold">
                     <ClipboardList />
                   </Button>
-
+          
                   {/* 右側 */}
                   <Button type="submit" variant="default" className="font-bold ml-auto" disabled={loading || !content.trim()}>
                     {loading ? "投稿中…" : "投稿"}

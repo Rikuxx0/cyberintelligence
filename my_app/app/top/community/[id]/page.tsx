@@ -45,10 +45,14 @@ export default function PostDetail() {
   const params = useParams()
   const router = useRouter()
   const [post, setPost] = useState<Post | null>(null)
+  const [isFavorite, setIsFavorite] = useState(false)
   const [currentUser, setCurrentUser] = useState<SupabaseUser | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+
+  
+  //　投稿を取得するための機能
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -82,6 +86,55 @@ export default function PostDetail() {
     }
   }, [params.id])
 
+  //お気に入りのデータを取得するための機能
+  useEffect(() => {
+    const checkFavorite = async () => {
+      if(!currentUser || !params.id) return
+      const { data } = await supabase
+        .from("favorite_posts")
+        .select("*")
+        .eq("user_id", currentUser.id)
+        .eq("post_id", Number(params.id))
+        .single()
+
+        if (data) setIsFavorite(true)
+        else setIsFavorite(false)
+    }
+
+    checkFavorite()
+  }, [currentUser, params.id])
+
+
+  //　お気に入りに入れるためのトグル処理関数
+  const handleToggleFavorite = async () => {
+  if (!currentUser || !post) return
+
+  if (isFavorite) {
+    // 削除
+    const { error } = await supabase
+      .from("favorite_posts")
+      .delete()
+      .eq("user_id", currentUser.id)
+      .eq("post_id", post.id)
+
+    if (!error) setIsFavorite(false)
+  } else {
+    // 追加
+    const { error } = await supabase
+      .from("favorite_posts")
+      .insert({
+        user_id: currentUser.id,
+        post_id: post.id,
+      })
+
+    if (!error) setIsFavorite(true)
+  }
+}
+
+
+
+
+  // 投稿削除のためのハンドリング
   const handleDelete = async () => {
     if (!post || !currentUser) return
 
@@ -231,7 +284,7 @@ export default function PostDetail() {
           {/* アクション */}
           <div className="flex items-center justify-between pt-4 border-t">
             <div className="flex items-center space-x-6">
-              <Button variant="ghost" size="sm" className="flex items-center gap-2">
+              <Button variant="ghost" size="sm" className="flex items-center gap-2" onClick={handleToggleFavorite}>
                 <Heart className="h-4 w-4" />
                 <span>{post.likes}</span>
               </Button>
