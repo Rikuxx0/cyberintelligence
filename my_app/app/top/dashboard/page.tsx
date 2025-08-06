@@ -155,29 +155,25 @@ export default function Dashboard() {
         <CardHeader>
           <CardTitle>統計情報</CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-row text-center justify-center gap-x-30">
+        <CardContent className="flex flex-row text-center justify-center gap-x-40">
           <Link href={`/top/dashboard/posts`}>
             <div>
-              <p className="text-2xl font-bold">{user?.posts}</p>
-              <p className="text-sm text-muted-foreground">投稿</p>
+              <p className="text-xl font-semibold">投稿</p>
             </div>
           </Link>
           <Link href={`/top/dashboard/follow`}>
             <div>
-              <p  className="text-2xl font-bold" >{user?.follow}</p>
-              <p className="text-sm text-muted-foreground">フォロー数</p>
+              <p className="text-xl font-semibold">フォロー数</p>
             </div>
           </Link>
           <Link href={`/top/dashboard/followers`}>
             <div>
-              <p className="text-2xl font-bold">{user?.followers}</p>
-              <p className="text-sm text-muted-foreground">フォロワー数</p>
+              <p className="text-xl font-semibold">フォロワー数</p>
             </div>
           </Link>
            <Link href={`/top/dashboard/comments`}>
             <div>
-              <p className="text-2xl font-bold">{user?.comments}</p>
-              <p className="text-sm text-muted-foreground">コメント</p>
+              <p className="text-xl font-semibold">コメント</p>
             </div>
           </Link>
         </CardContent>
