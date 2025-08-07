@@ -305,14 +305,14 @@ export default function PostDetail() {
         </CardContent>
       </Card>
 
-      {/* コメントセクション（将来の実装用） */}
+      {/* コメントセクション */}
       <Card className="bg-white">
         <CardHeader>
           <CardTitle className="text-lg">コメント</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-center text-gray-500 py-8">
-            コメント機能は今後実装予定です
+            コメント機能は現在開発中です
           </div>
         </CardContent>
       </Card>

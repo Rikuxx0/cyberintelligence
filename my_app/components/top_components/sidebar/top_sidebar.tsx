@@ -18,7 +18,7 @@ import {
 
 import { NavUser } from './nav_user'
 
-// 仮のデータ
+// ユーザーデータ
 const data = {
   user: {
     name: "shadcn",
@@ -68,7 +68,6 @@ export default function SidebarComponent() {
     <Sidebar variant="inset" side='left' collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
-          {/** 後でアイコンを作成すること！ */}
           <SidebarGroupLabel className="text-2xl font-bold text-black p-2">
             Cyber Intelligence
           </SidebarGroupLabel>
@@ -89,10 +88,9 @@ export default function SidebarComponent() {
         </SidebarGroup>
       </SidebarContent>
       
-      {/** ユーザー表示関係 */}
-            <SidebarFooter>
-              <NavUser user={data.user}/>
-            </SidebarFooter>
+      <SidebarFooter>
+        <NavUser user={data.user}/>
+      </SidebarFooter>
     </Sidebar>
   )
 }

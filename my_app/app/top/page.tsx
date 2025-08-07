@@ -20,19 +20,14 @@ import {
 import Quick_search_form from "@/components/top_components/top/quick_post_form";
 import Search_form from "@/components/top_components/top/search_form";
 
-
-
-  //仮データ！！！
-  //　トレンドデータ
-  const trends = [
-    { tag: "TypeScript", tweets: "12,300件の投稿" },
-    { tag: "ChatGPT", tweets: "28,500件の投稿" },
-    { tag: "React", tweets: "9,100件の投稿" },
-    { tag: "AWS", tweets: "5,300件の投稿" },
-    { tag: "Burp Suite", tweets: "1,700件の投稿" },
-  ]
-
-  
+// トレンドデータ
+const trends = [
+  { tag: "TypeScript", tweets: "12,300件の投稿" },
+  { tag: "ChatGPT", tweets: "28,500件の投稿" },
+  { tag: "React", tweets: "9,100件の投稿" },
+  { tag: "AWS", tweets: "5,300件の投稿" },
+  { tag: "Burp Suite", tweets: "1,700件の投稿" },
+]
 
 export default function Top() {
   
@@ -43,9 +38,7 @@ export default function Top() {
         className="rounded-lg border"
       >
         <ResizablePanel defaultSize={70}>
-          {/**クイック投稿機能 */}
           <Quick_search_form />
-          {/** 人気投稿タグ一覧 */}
           <div>
             <Card className="p-4 space-y-4">
                 <CardContent>
@@ -56,12 +49,6 @@ export default function Top() {
                       </TabsList>
                       <TabsContent value="followers">
                         <Card className="w-full">
-
-                          {/** フォロー中の通話の枠を表示 */}
-                          <TabsContent value="followers">
-                            
-                          </TabsContent>
-
                           <CardHeader>
                             <CardTitle className="text-lg font-bold">フォロー中の投稿</CardTitle>
                           </CardHeader>
@@ -77,12 +64,6 @@ export default function Top() {
                         </Card>
                       </TabsContent>
                       <TabsContent value="open">
-                        
-                        {/** オープンの通話の枠を表示 */}
-                        <TabsContent value="open">
-                          
-                        </TabsContent>
-
                         <Card className="w-full">
                           <CardHeader>
                             <CardTitle className="text-lg font-bold">人気の投稿</CardTitle>

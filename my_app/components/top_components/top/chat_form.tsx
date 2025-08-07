@@ -46,7 +46,6 @@ export default function Chat_form({ accountName  }: Props) {
   
   return (
      <div className="flex flex-col h-full w-full border shadow rounded-lg overflow-hidden">
-      {/* ヘッダー */}
       <Card className="rounded-none border-b w-full px-5 flex item-start">
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
@@ -58,7 +57,6 @@ export default function Chat_form({ accountName  }: Props) {
         </div>
       </Card>
 
-      {/* メッセージリスト */}
       <ScrollArea className="flex-1 px-4 py-3 bg-muted">
         {messages.map((message) => (
           <Card
@@ -74,18 +72,19 @@ export default function Chat_form({ accountName  }: Props) {
         ))}
       </ScrollArea>
 
-      {/* 入力欄 */}
-      <Card className="rounded-none border-t px-4 py-3">
-        <form onSubmit={handleSend} className="flex gap-2">
+      <form onSubmit={handleSend} className="p-4 border-t">
+        <div className="flex gap-2">
           <Input
-            placeholder="メッセージを送信"
-            className="flex-1"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            placeholder="メッセージを入力..."
+            className="flex-1"
           />
-          <Button type="submit">Send</Button>
-        </form>
-      </Card>
+          <Button type="submit" size="sm">
+            送信
+          </Button>
+        </div>
+      </form>
     </div>
-  );
+  )
 }

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { HeartIcon } from "lucide-react"
 
-// ダミーお気に入りデータ
+// お気に入りデータ
 const favoritePosts = [
   {
     id: 1,

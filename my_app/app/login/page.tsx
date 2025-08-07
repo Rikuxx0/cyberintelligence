@@ -31,15 +31,11 @@ export default function Login() {
         e.preventDefault();
         setError('');
 
-        
         let email = '';
 
-        //identifierがユーザ名かメールアドレスかを判定
         if (identifier.includes('@')) {
-            //メールアドレスとして使用
             email = identifier;
         } else {
-            //　ユーザ名としてデータベースからメールを取得
             const { data,  error: fetchError } = await supabase.from('profiles').select('email').eq('username', identifier).single();
 
             if ( fetchError || !data.email) {
@@ -50,7 +46,6 @@ export default function Login() {
             email = data.email;
         }
 
-        //supabase Authでログイン
         const { error: signInError } = await supabase.auth.signInWithPassword({
             email,
             password,

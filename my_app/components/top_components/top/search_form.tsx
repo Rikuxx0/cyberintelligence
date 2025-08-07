@@ -22,7 +22,6 @@ type Post = {
 
 
 export default function Search_form() {
-  //supabaseのテーブルのカラム情報の保持
   const [ posts, setPosts ] = useState<Post[]>([])
   
   useEffect(() => {
@@ -33,10 +32,9 @@ export default function Search_form() {
         return
       }
 
-      //id,name ,content, tagsを　search_form.tsx用に変換
       const mapped = data.map((post) => ({
         id: post.id,
-        title: post.title, //問題あり
+        title: post.title,
         content: post.content,
         tags: post.tags || [],
       }))
@@ -48,26 +46,19 @@ export default function Search_form() {
     fetchPosts()
   }, [])
 
+  const [keyword, setKeyword] = useState('')
+  const [submittedKeyword, setSubmittedKeyword] = useState('')
+  const [open, setOpen] = useState(false)
   
-  
-  // 検索関係の状態保持
-  const [keyword, setKeyword] = useState(''); //検索ワードの保持
-  const [submittedKeyword, setSubmittedKeyword] = useState(''); //提出する時のワードの保持
-  const [open, setOpen] = useState(false); // ポップオーバー開閉制御
-  
-  
-  //検索フォームのサイズによって、検索結果のサイズの変化するための状態保持
   const searchBoxRef = useRef<HTMLDivElement | null>(null);
   const [searchBoxWidth, setSearchBoxWidth] = useState<number | null>(null);
 
-  // 入力のたびにサイズ再計測
   useEffect(() => {
   if (searchBoxRef.current) {
     setSearchBoxWidth(searchBoxRef.current.offsetWidth);
   }
   }, [keyword]); 
 
-  //検索する時のフィルター
   const keywordLower = submittedKeyword.toLowerCase();
 
   const filteredPosts = posts.filter((post) => {
@@ -77,17 +68,14 @@ export default function Search_form() {
     return tagMatches;
   });
 
-  
-  //検索し、enterを押すためのハンドラ
   const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter') {
       e.preventDefault();
       setSubmittedKeyword(keyword.trim());
-      setOpen(true); // Enter で開く
+      setOpen(true);
     };
   }
 
-  //ポストされた記事の生成関数
   function PostCard({ post }: { post: Post }) {
     return (
       <Card className="w-full">

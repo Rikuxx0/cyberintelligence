@@ -62,7 +62,7 @@ const cardContents = [
 ];
 
 
-// 仮データ
+// 人気タグデータ
 const popularTags = [
   { name: "セキュリティ", count: 156, color: "#ff0000" },
   { name: "逆アセンブル", count: 89, color: "#00ff00" },

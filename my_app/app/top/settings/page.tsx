@@ -11,14 +11,28 @@ import { supabase } from "@/lib/supabaseClient";
 import { deleteUser } from "@/actions/deleteUser"
 
 export default function Settings() {
-  const [name, setName] = useState("山田 太郎") //仮データ
-  const [email, setEmail] = useState("taro@example.com") //仮データ
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
   const [userId, setUserId] = useState<string | null>(null);
  
   useEffect(() => {
     const fetchUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      if (user) setUserId(user.id);
+      if (user) {
+        setUserId(user.id);
+        setEmail(user.email || "");
+        
+        // プロフィール情報を取得
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("username, full_name")
+          .eq("user_id", user.id)
+          .single();
+        
+        if (profile) {
+          setName(profile.full_name || profile.username || "");
+        }
+      }
     };
     fetchUser();
   }, []);

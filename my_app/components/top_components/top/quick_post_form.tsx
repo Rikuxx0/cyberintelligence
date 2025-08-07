@@ -10,24 +10,20 @@ import Line_break_input from './line_break_input';
 
 
 export default function Quick_search_form() {
-  const [ title, setTitle ] = useState(""); //　タイトルの状態保持
-  const [ content, setContent ] = useState(""); //コンテンツの状態保持
-  const [ type, setType ] = useState(""); // 投稿タイプの状態保持
-  const [ tags, setTags ] = useState(""); //　タグの状態保持
-  const [ error, setError ] = useState<string | null>(null); //エラーの状態保持
-  const [ loading, setLoading ] = useState(false); //ローディングするための状態保持
-
-
+  const [ title, setTitle ] = useState("")
+  const [ content, setContent ] = useState("")
+  const [ type, setType ] = useState("")
+  const [ tags, setTags ] = useState("")
+  const [ error, setError ] = useState<string | null>(null)
+  const [ loading, setLoading ] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
 
-    // ユーザー取得
     const { data: { user }, error: authError } = await supabase.auth.getUser();
 
-    // タグの型を定義
     const tagArray = tags.split(',').map(tag => tag.trim()).filter(Boolean);
 
     if ( authError || !user ) {
@@ -36,11 +32,10 @@ export default function Quick_search_form() {
       return;
     }
 
-    // 投稿データをSupabaseに送信
     const { error: insertError} = await supabase.from('posts').insert({
       title,
       content,
-      author: user.email, //　または　username　を取得して指定
+      author: user.email,
       user_id: user.id,
       tags: tagArray,
       type,
@@ -56,7 +51,7 @@ export default function Quick_search_form() {
     }
 
     setLoading(false);
- };
+  };
   
   
   

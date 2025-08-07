@@ -31,10 +31,8 @@ type SupabaseUser = {
 }
 
 export default function Dashboard() {
-  //　ユーザー情報
   const [user, setUser] = useState<SupabaseUser | null>(null);
  
-
   useEffect(() => {
     const  fetchUser = async () => {
       const {
@@ -45,7 +43,6 @@ export default function Dashboard() {
         console.warn("セッションが存在しません（ログインしていない可能性）");
         return;
       }
-      
       
       const {
         data: { user },
@@ -73,9 +70,6 @@ export default function Dashboard() {
     fetchUser();
   }, [])
 
-
-
-  //フォローしている技術タグ
   const followingTags = [
     { name: "セキュリティ", posts: 156, color: "#ff0000" },
     { name: "逆アセンブル", posts: 89, color: "#00ff00" },
@@ -83,7 +77,6 @@ export default function Dashboard() {
     { name: "ネットワーク", posts: 67, color: "#ff00ff" },
   ]
 
-  //最近のアクシビティの投稿
   const recentActivity = [
     { type: "post", title: "SQLインジェクション解析完了", time: "２週間前", tag: "セキュリティ" },
     { type: "comment", title: "マルウェア解析スレッドにコメント", time: "４時間前", tag: "逆アセンブル" },
